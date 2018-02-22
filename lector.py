@@ -40,8 +40,13 @@ class Cargador:
 					seismo.append(reg[0][8:10])
 					seismo.append(reg[0][11:13])
 					seismo.append(reg[0][14:16])
-					seismo.append(reg[1])
-					seismo.append(reg[2])
+					lon=reg[1].split(',')
+					lat=reg[2].split(',')
+					seismo.append(lon[0])
+					seismo.append(lon[1])
+					seismo.append(lat[0])
+					seismo.append(lat[1])
+					print seismo
 					num =  Decimal(reg[3].replace(",",".")) * 10
 					p=int(num)
 					posicion[p] = 1
