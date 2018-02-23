@@ -1,5 +1,6 @@
 import csv, operator, random
 from decimal import Decimal
+import numpy as np
 
 class Cargador:
 	
@@ -7,6 +8,7 @@ class Cargador:
 		self.test = []
 		self.train = []
 		self.clasificador()
+
 
 	def ramdomEspetial(self,lista):
 		lista1 = lista[0]
@@ -43,10 +45,18 @@ class Cargador:
 					lon=reg[1].split(',')
 					lat=reg[2].split(',')
 					seismo.append(lon[0])
-					seismo.append(lon[1])
+					try:
+						seismo.append(lon[1])
+					except Exception as e:
+						pass
+					
 					seismo.append(lat[0])
-					seismo.append(lat[1])
-					print seismo
+
+					try:
+						seismo.append(lat[1])
+					except Exception as e:
+						pass
+				
 					num =  Decimal(reg[3].replace(",",".")) * 10
 					p=int(num)
 					posicion[p] = 1
@@ -60,12 +70,16 @@ class Cargador:
 		sismos2= self.lector('3141Valle.csv')
 		sismos3 = sismos1[0]+sismos2[0]
 		sismos4 = sismos1[1]+sismos2[1]
-		sismos = [sismos3,sismos4]
+
+		sismos5= np.asarray(sismos3,dtype=int)
+		sismos6= np.asarray(sismos4,dtype=int)
+		sismos = [sismos5,sismos6]
 		return sismos
 
 	def clasificador(self):
 		tot = self.recolector()
 		total = self.ramdomEspetial(tot)
+
 		test1 = total[0][:900]
 		test2 = total[1][:900]
 		self.test = [test1,test2]
@@ -79,5 +93,4 @@ class Cargador:
 		return self.train[0]
 	def trainLabels(self):
 		return self.train[1]
-
 

@@ -2,8 +2,8 @@ import lector
 datas = lector.Cargador()
 
 import tensorflow as tf
-x = tf.placeholder("float", [None, 6])
-W = tf.Variable(tf.zeros([6,95]))
+x = tf.placeholder("float", [None, 9])
+W = tf.Variable(tf.zeros([9,95]))
 b = tf.Variable(tf.zeros([95]))
 matm=tf.matmul(x,W)
 y = tf.nn.softmax(tf.matmul(x,W) + b)
